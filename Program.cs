@@ -10,13 +10,17 @@ using var db = new BloggingContext();
 
 // Note: This sample requires the database to be created before running.
 Console.WriteLine($"Database path: {db.DbPath}.");
-Console.WriteLine($"Count Blogs: {db.Blogs.Count()}");
+
+var count = await db.Blogs.CountAsync();
+Console.WriteLine($"Count Blogs: {count}");
 
 // Create
 Console.WriteLine("Inserting a new blog");
 db.Add(new Blog { Url = "http://blogs.msdn.com/adonet" });
 await db.SaveChangesAsync();
-Console.WriteLine($"Count Blogs: {db.Blogs.Count()}");
+
+count = await db.Blogs.CountAsync();
+Console.WriteLine($"Count Blogs: {count}");
 
 // Read
 Console.WriteLine("Querying for a blog");
@@ -25,7 +29,9 @@ var blog = await db.Blogs
     .FirstAsync();
 Console.WriteLine($"Blog found: {blog.Url}");
 Console.WriteLine($"Does it have Post?: {blog.Posts.Count > 0}");
-Console.WriteLine($"Count Blogs: {db.Blogs.Count()}");
+
+count = await db.Blogs.CountAsync();
+Console.WriteLine($"Count Blogs: {count}");
 
 // Update
 Console.WriteLine("Updating the blog and adding a post");
@@ -38,15 +44,17 @@ Console.WriteLine($"Blog found: {blog.Url}");
 Console.WriteLine($"Does it have Post?: {blog.Posts.Count > 0}");
 Console.WriteLine($"Post found: {blog.Posts[0].Title}");
 Console.WriteLine($"Post content: {blog.Posts[0].Content}");
-Console.WriteLine($"Count Blogs: {db.Blogs.Count()}");
+
+count = await db.Blogs.CountAsync();
+Console.WriteLine($"Count Blogs: {count}");
 
 // Delete
 Console.WriteLine("Delete the blog");
 db.Remove(blog);
 await db.SaveChangesAsync();
 
-Console.WriteLine($"Count Blogs: {db.Blogs.Count()}");
-
+count = await db.Blogs.CountAsync();
+Console.WriteLine($"Count Blogs: {count}");
 
 
 
