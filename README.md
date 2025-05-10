@@ -11,7 +11,7 @@ To drop the database, use the following command:
 ### Using .NET CLI:
 dotnet ef database drop --force
 
-
+# DotNet Commands
 ## Run Application
 To run the application, use the following command:
 
