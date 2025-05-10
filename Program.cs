@@ -10,20 +10,22 @@ using var db = new BloggingContext();
 
 // Note: This sample requires the database to be created before running.
 Console.WriteLine($"Database path: {db.DbPath}.");
+Console.WriteLine($"Count Blogs: {db.Blogs.Count()}");
 
 // Create
 Console.WriteLine("Inserting a new blog");
 db.Add(new Blog { Url = "http://blogs.msdn.com/adonet" });
 await db.SaveChangesAsync();
+Console.WriteLine($"Count Blogs: {db.Blogs.Count()}");
 
 // Read
 Console.WriteLine("Querying for a blog");
 var blog = await db.Blogs
     .OrderBy(b => b.BlogId)
     .FirstAsync();
-
 Console.WriteLine($"Blog found: {blog.Url}");
 Console.WriteLine($"Does it have Post?: {blog.Posts.Count > 0}");
+Console.WriteLine($"Count Blogs: {db.Blogs.Count()}");
 
 // Update
 Console.WriteLine("Updating the blog and adding a post");
@@ -36,11 +38,16 @@ Console.WriteLine($"Blog found: {blog.Url}");
 Console.WriteLine($"Does it have Post?: {blog.Posts.Count > 0}");
 Console.WriteLine($"Post found: {blog.Posts[0].Title}");
 Console.WriteLine($"Post content: {blog.Posts[0].Content}");
+Console.WriteLine($"Count Blogs: {db.Blogs.Count()}");
 
 // Delete
 Console.WriteLine("Delete the blog");
 db.Remove(blog);
 await db.SaveChangesAsync();
+
+Console.WriteLine($"Count Blogs: {db.Blogs.Count()}");
+
+
 
 
 public class BloggingContext : DbContext
